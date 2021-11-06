@@ -99,6 +99,12 @@ function editTodo(e) {
     let oldText = todo.textContent;
 
     todo.setAttribute("contenteditable", "true");
+    todo.addEventListener("focus", function () {
+      this.classList.add("is-focused");
+    });
+    todo.addEventListener("blur", function () {
+      this.classList.remove("is-focused");
+    });
     // Add edit confirmation button
     let btnConfirm = document.createElement("button");
     btnConfirm.classList.add("confirm-button");

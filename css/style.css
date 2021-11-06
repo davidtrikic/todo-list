@@ -28,3 +28,6 @@ svg {
   display: flex;
   justify-content: space-between;
 }
+.is-focused {
+  background: rgba(13, 202, 240, 0.2);
+}
