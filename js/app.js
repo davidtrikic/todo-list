@@ -7,6 +7,7 @@ const todosList = document.querySelector(".todos-list");
 document.addEventListener("DOMContentLoaded", fillContent);
 addTodoBtn.addEventListener("click", addTodo);
 todosList.addEventListener("click", deleteTodo);
+todosList.addEventListener("click", editTodo);
 
 // Functions
 function fillContent() {
@@ -87,5 +88,32 @@ function deleteTodo(e) {
     todos.splice(todos.indexOf(todoText), 1);
     // Save modified array to localStorage
     localStorage.setItem("todos", JSON.stringify(todos));
+  }
+}
+
+function editTodo(e) {
+  let buttonsDiv = e.target.parentElement;
+
+  if (e.target.classList.contains("edit-button")) {
+    let todo = buttonsDiv.previousElementSibling.children[1];
+    let oldText = todo.textContent;
+
+    todo.setAttribute("contenteditable", "true");
+    // Add edit confirmation button
+    let btnConfirm = document.createElement("button");
+    btnConfirm.classList.add("confirm-button");
+    btnConfirm.innerHTML = `<i class="fas fa-check text-primary"></i>`;
+    // Add button only once
+    if (!buttonsDiv.children[0].classList.contains("confirm-button")) {
+      buttonsDiv.prepend(btnConfirm);
+    }
+    // Save edited todo
+    btnConfirm.addEventListener("click", function () {
+      let todos = JSON.parse(localStorage.getItem("todos"));
+      todos[todos.indexOf(oldText)] = todo.textContent;
+      localStorage.setItem("todos", JSON.stringify(todos));
+      btnConfirm.remove();
+      todo.setAttribute("contenteditable", "false");
+    });
   }
 }
