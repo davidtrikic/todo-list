@@ -1,6 +1,9 @@
 li {
   list-style-type: none;
 }
+svg {
+  pointer-events: none;
+}
 .todos {
   max-width: 920px;
 }
@@ -12,11 +15,14 @@ li {
   display: flex;
   align-items: center;
 }
-.buttons a {
-  margin: 0 0.5rem;
+.buttons button {
+  margin: 0 2px;
+  background: none;
+  border: none;
 }
-.buttons a:hover {
+.buttons button:hover i {
   cursor: pointer;
+  fill: red;
 }
 .list-group-item {
   display: flex;
