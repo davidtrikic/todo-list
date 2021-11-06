@@ -6,15 +6,9 @@ const todosList = document.querySelector(".todos-list");
 // Event listeners
 document.addEventListener("DOMContentLoaded", fillContent);
 addTodoBtn.addEventListener("click", addTodo);
+todosList.addEventListener("click", deleteTodo);
 
 // Functions
-function addTodo(e) {
-  e.preventDefault();
-  createTodo(todoInput.value);
-  saveToLocal(todoInput.value);
-  todoInput.value = "";
-}
-
 function fillContent() {
   // Check if localStorage is not empty and create Todos
   if (checkStorage()) {
@@ -24,6 +18,13 @@ function fillContent() {
       createTodo(todo);
     });
   }
+}
+
+function addTodo(e) {
+  e.preventDefault();
+  createTodo(todoInput.value);
+  saveToLocal(todoInput.value);
+  todoInput.value = "";
 }
 
 function checkStorage() {
@@ -62,15 +63,29 @@ function createTodo(todoContent) {
   //Buttons
   buttonsDiv = document.createElement("div");
   buttonsDiv.classList.add("buttons");
-  btnEdit = document.createElement("a");
+  btnEdit = document.createElement("button");
   btnEdit.classList.add("edit-button");
-  btnEdit.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
-  btnDelete = document.createElement("a");
+  btnEdit.innerHTML = `<i class="fas fa-pencil-alt text-info"></i>`;
+  btnDelete = document.createElement("button");
   btnDelete.classList.add("delete-button");
-  btnDelete.innerHTML = `<i class="fas fa-trash-alt"></i>`;
+  btnDelete.innerHTML = `<i class="fas fa-trash-alt text-danger"></i>`;
   buttonsDiv.appendChild(btnEdit);
   buttonsDiv.appendChild(btnDelete);
   li.appendChild(buttonsDiv);
 
   todosList.appendChild(li);
+}
+
+function deleteTodo(e) {
+  let item = e.target.parentElement;
+
+  if (e.target.classList.contains("delete-button")) {
+    item.parentElement.remove(); // Remove from DOM
+    let todos = JSON.parse(localStorage.getItem("todos"));
+    let todoText = item.parentElement.textContent;
+    // Remove todo from array using its index
+    todos.splice(todos.indexOf(todoText), 1);
+    // Save modified array to localStorage
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
 }
