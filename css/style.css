@@ -4,8 +4,12 @@ li {
 svg {
   pointer-events: none;
 }
+.todo {
+  user-select: none;
+}
 .todos {
   max-width: 920px;
+  margin-top: 1rem;
 }
 .form-check-input {
   position: relative;
@@ -22,12 +26,14 @@ svg {
 }
 .buttons button:hover i {
   cursor: pointer;
-  fill: red;
 }
 .list-group-item {
   display: flex;
   justify-content: space-between;
 }
 .is-focused {
-  background: rgba(13, 202, 240, 0.2);
+  background: #ddd;
+  padding: 3px 5px;
+  border-radius: 2px;
+  outline: none;
 }
