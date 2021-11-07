@@ -8,11 +8,12 @@ document.addEventListener("DOMContentLoaded", fillContent);
 addTodoBtn.addEventListener("click", addTodo);
 todosList.addEventListener("click", deleteTodo);
 todosList.addEventListener("click", editTodo);
+todosList.addEventListener("click", checkCompleted);
 
 // Functions
 function fillContent() {
   // Check if localStorage is not empty and create Todos
-  if (checkStorage()) {
+  if (checkStorage("todos")) {
     let todos;
     todos = JSON.parse(localStorage.getItem("todos"));
     todos.forEach((todo) => {
@@ -28,21 +29,23 @@ function addTodo(e) {
   todoInput.value = "";
 }
 
-function checkStorage() {
+function checkStorage(item) {
   // Check if localStorage is empty
-  return localStorage.getItem("todos") !== null;
+  return localStorage.getItem(item) !== null;
 }
 
 function saveToLocal(todo) {
   let todos;
-  if (checkStorage()) {
+  if (checkStorage("todos")) {
     todos = JSON.parse(localStorage.getItem("todos"));
   } else {
     todos = [];
+    checked = [];
   }
   todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
+
 // Create Todo element in DOM
 function createTodo(todoContent) {
   let li, divTodo, checkbox, span, buttonsDiv, btnEdit, btnDelete;
@@ -122,4 +125,44 @@ function editTodo(e) {
       todo.setAttribute("contenteditable", "false");
     });
   }
+}
+
+function checkCompleted(e) {
+  let todo = e.target.parentElement.children[1];
+  if (e.target.classList.contains("form-check-input")) {
+    if (e.target.checked) {
+      todo.style.textDecoration = "line-through";
+      todo.style.color = "#555";
+    }
+    if (!e.target.checked) {
+      todo.style.textDecoration = "initial";
+      todo.style.color = "#212529";
+    }
+    saveChecked(todo.textContent, e.target.checked);
+  }
+}
+
+function saveChecked(todo, isChecked) {
+  let checked, todos, indexOfTodo;
+  if (checkStorage("checked")) {
+    checked = JSON.parse(localStorage.getItem("checked"));
+  } else {
+    checked = [];
+  }
+  todos = JSON.parse(localStorage.getItem("todos"));
+  indexOfTodo = todos.indexOf(todo);
+  console.log("Todo Index: " + indexOfTodo);
+  if (isChecked) {
+    if (checked[indexOfTodo] !== null) {
+      //   checked[indexOfTodo] = "true";
+      checked.splice(indexOfTodo, 0, "true");
+    } else {
+      checked.splice(indexOfTodo, 1, "true");
+    }
+
+    console.log(checked);
+  }
+  //   if (!isChecked) checked[indexOfTodo] = "false";
+
+  //   localStorage.setItem("checked", JSON.stringify(checked));
 }
