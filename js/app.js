@@ -155,14 +155,13 @@ function saveChecked(todo, isChecked) {
   if (isChecked) {
     if (checked[indexOfTodo] !== null) {
       //   checked[indexOfTodo] = "true";
+      // Work on array methods to save bool to array on exact position
       checked.splice(indexOfTodo, 0, "true");
     } else {
       checked.splice(indexOfTodo, 1, "true");
     }
-
     console.log(checked);
   }
-  //   if (!isChecked) checked[indexOfTodo] = "false";
 
   //   localStorage.setItem("checked", JSON.stringify(checked));
 }
