@@ -2,6 +2,12 @@
 const todoInput = document.querySelector(".todo-input");
 const addTodoBtn = document.querySelector(".add-todo");
 const todosList = document.querySelector(".todos-list");
+const clear = document.querySelector(".clear");
+
+clear.addEventListener("click", function (e) {
+  e.preventDefault();
+  localStorage.clear();
+});
 
 // Event listeners
 document.addEventListener("DOMContentLoaded", fillContent);
@@ -19,7 +25,6 @@ function fillContent() {
     checked = JSON.parse(localStorage.getItem("checked"));
 
     todos.forEach((todo, i) => {
-      console.log(todo + " " + i);
       createTodo(todo, i, checked);
     });
   }
@@ -87,6 +92,7 @@ function createTodo(todoContent, todoIndex, checked) {
     if (checked[todoIndex] === true) {
       checkbox.checked = true;
       span.style.textDecoration = "line-through";
+      span.style.color = "#555";
     }
   }
 }
@@ -95,11 +101,17 @@ function deleteTodo(e) {
   let item = e.target.parentElement;
 
   if (e.target.classList.contains("delete-button")) {
-    item.parentElement.remove(); // Remove from DOM
     let todos = JSON.parse(localStorage.getItem("todos"));
-    let todoText = item.parentElement.textContent;
+    let checked = JSON.parse(localStorage.getItem("checked"));
+    let todoIndex = todos.indexOf(item.parentElement.textContent);
+    item.parentElement.remove(); // Remove from DOM
+
+    if (checked !== null && checked[todoIndex]) {
+      checked[todoIndex] = false;
+      localStorage.setItem("checked", JSON.stringify(checked));
+    }
     // Remove todo from array using its index
-    todos.splice(todos.indexOf(todoText), 1);
+    todos.splice(todoIndex, 1);
     // Save modified array to localStorage
     localStorage.setItem("todos", JSON.stringify(todos));
   }
@@ -155,18 +167,21 @@ function checkCompleted(e) {
 
 function saveChecked(todo, isChecked) {
   let todos, indexOfTodo, checked;
+  todos = JSON.parse(localStorage.getItem("todos"));
+  indexOfTodo = todos.indexOf(todo);
 
   if (checkStorage("checked")) {
     checked = JSON.parse(localStorage.getItem("checked"));
   } else {
     checked = [];
   }
-  todos = JSON.parse(localStorage.getItem("todos"));
-  indexOfTodo = todos.indexOf(todo);
-  console.log(indexOfTodo);
+
   if (isChecked) {
-    if (checked[indexOfTodo] === undefined || checked[indexOfTodo] === false) {
-      console.log("saved");
+    if (
+      checked[indexOfTodo] === undefined ||
+      checked[indexOfTodo] === false ||
+      checked[indexOfTodo] === null
+    ) {
       checked[indexOfTodo] = true;
     }
   }
@@ -175,5 +190,5 @@ function saveChecked(todo, isChecked) {
   }
 
   localStorage.setItem("checked", JSON.stringify(checked));
-  console.log("Checked local:" + localStorage.getItem("checked"));
+  console.log(JSON.parse(localStorage.getItem("checked")));
 }
