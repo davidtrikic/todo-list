@@ -14,10 +14,13 @@ todosList.addEventListener("click", checkCompleted);
 function fillContent() {
   // Check if localStorage is not empty and create Todos
   if (checkStorage("todos")) {
-    let todos;
+    let todos, checked;
     todos = JSON.parse(localStorage.getItem("todos"));
-    todos.forEach((todo) => {
-      createTodo(todo);
+    checked = JSON.parse(localStorage.getItem("checked"));
+
+    todos.forEach((todo, i) => {
+      console.log(todo + " " + i);
+      createTodo(todo, i, checked);
     });
   }
 }
@@ -47,7 +50,7 @@ function saveToLocal(todo) {
 }
 
 // Create Todo element in DOM
-function createTodo(todoContent) {
+function createTodo(todoContent, todoIndex, checked) {
   let li, divTodo, checkbox, span, buttonsDiv, btnEdit, btnDelete;
 
   li = document.createElement("li");
@@ -57,6 +60,7 @@ function createTodo(todoContent) {
   checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
   checkbox.classList.add("form-check-input", "me-2");
+
   divTodo.appendChild(checkbox);
   span = document.createElement("span");
   span.classList.add("todo");
@@ -78,6 +82,13 @@ function createTodo(todoContent) {
   li.appendChild(buttonsDiv);
 
   todosList.appendChild(li);
+  // Load checked todos
+  if (todoIndex != null && checked !== null) {
+    if (checked[todoIndex] === true) {
+      checkbox.checked = true;
+      span.style.textDecoration = "line-through";
+    }
+  }
 }
 
 function deleteTodo(e) {
@@ -143,7 +154,8 @@ function checkCompleted(e) {
 }
 
 function saveChecked(todo, isChecked) {
-  let checked, todos, indexOfTodo;
+  let todos, indexOfTodo, checked;
+
   if (checkStorage("checked")) {
     checked = JSON.parse(localStorage.getItem("checked"));
   } else {
@@ -151,17 +163,17 @@ function saveChecked(todo, isChecked) {
   }
   todos = JSON.parse(localStorage.getItem("todos"));
   indexOfTodo = todos.indexOf(todo);
-  console.log("Todo Index: " + indexOfTodo);
+  console.log(indexOfTodo);
   if (isChecked) {
-    if (checked[indexOfTodo] !== null) {
-      //   checked[indexOfTodo] = "true";
-      // Work on array methods to save bool to array on exact position
-      checked.splice(indexOfTodo, 0, "true");
-    } else {
-      checked.splice(indexOfTodo, 1, "true");
+    if (checked[indexOfTodo] === undefined || checked[indexOfTodo] === false) {
+      console.log("saved");
+      checked[indexOfTodo] = true;
     }
-    console.log(checked);
+  }
+  if (!isChecked) {
+    checked[indexOfTodo] = false;
   }
 
-  //   localStorage.setItem("checked", JSON.stringify(checked));
+  localStorage.setItem("checked", JSON.stringify(checked));
+  console.log("Checked local:" + localStorage.getItem("checked"));
 }
