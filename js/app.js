@@ -210,7 +210,5 @@ function saveChecked(todo, isChecked) {
   if (!isChecked) {
     checked[indexOfTodo] = false;
   }
-
   localStorage.setItem("checked", JSON.stringify(checked));
-  console.log(JSON.parse(localStorage.getItem("checked")));
 }
