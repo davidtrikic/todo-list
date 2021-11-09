@@ -3,6 +3,7 @@ const todoInput = document.querySelector(".todo-input");
 const addTodoBtn = document.querySelector(".add-todo");
 const todosList = document.querySelector(".todos-list");
 
+// Testing code
 ///////////////////////////////////////////////////////////////////////////
 const clear = document.querySelector(".clear");
 const local = document.querySelector(".get-local");
@@ -23,7 +24,6 @@ local.addEventListener("click", function (e) {
   //   console.table(todos);
   //   console.table(checked);
   var me = new Data(todos, checked);
-
   console.table(me);
 });
 
@@ -142,7 +142,6 @@ function deleteTodo(e) {
 
 function editTodo(e) {
   let buttonsDiv = e.target.parentElement;
-
   if (e.target.classList.contains("edit-button")) {
     let todo = buttonsDiv.previousElementSibling.children[1];
     let oldText = todo.textContent;
@@ -174,8 +173,8 @@ function editTodo(e) {
 }
 
 function checkCompleted(e) {
-  let todo = e.target.parentElement.children[1];
   if (e.target.classList.contains("form-check-input")) {
+    let todo = e.target.parentElement.children[1];
     if (e.target.checked) {
       todo.style.textDecoration = "line-through";
       todo.style.color = "#555";
