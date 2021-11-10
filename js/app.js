@@ -30,31 +30,29 @@ local.addEventListener("click", function (e) {
 ///////////////////////////////////////////////////////////////////////////
 
 // Event listeners
-document.addEventListener("DOMContentLoaded", fillContent);
+document.addEventListener("DOMContentLoaded", createContent);
 addTodoBtn.addEventListener("click", addTodo);
 todosList.addEventListener("click", deleteTodo);
 todosList.addEventListener("click", editTodo);
 todosList.addEventListener("click", checkCompleted);
 
 // Functions
-function fillContent() {
-  // Check if localStorage is not empty and create Todos
-  if (checkStorage()) {
-    let todos, checked;
-    todos = JSON.parse(localStorage.getItem("todos"));
-    checked = JSON.parse(localStorage.getItem("checked"));
 
-    todos.forEach((todo, i) => {
-      createTodo(todo, i, checked);
-    });
+function createContent() {
+  // Set storage
+  if (!checkStorage()) {
+    let todos = [],
+      checked = [];
+    localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem("checked", JSON.stringify(checked));
   }
-}
+  // Read storage
+  todos = JSON.parse(localStorage.getItem("todos"));
+  checked = JSON.parse(localStorage.getItem("checked"));
 
-function addTodo(e) {
-  e.preventDefault();
-  createTodo(todoInput.value);
-  saveToLocal(todoInput.value);
-  todoInput.value = "";
+  todos.forEach((todo, index) => {
+    createTodo(todo, index, checked);
+  });
 }
 
 function checkStorage() {
@@ -65,23 +63,36 @@ function checkStorage() {
   );
 }
 
-function saveToLocal(todo) {
+function addTodo(e) {
+  e.preventDefault();
+  createTodo(todoInput.value);
+  let isSave = true;
+  saveToLocal(todoInput.value, isSave);
+  todoInput.value = "";
+}
+
+function saveToLocal(todoValue, isSave) {
   let todos, checked;
-  if (checkStorage()) {
-    todos = JSON.parse(localStorage.getItem("todos"));
-    checked = JSON.parse(localStorage.getItem("checked"));
-  } else {
-    todos = [];
-    checked = [];
+  // Read from storage
+  todos = JSON.parse(localStorage.getItem("todos"));
+  checked = JSON.parse(localStorage.getItem("checked"));
+  // Store value
+  if (isSave) {
+    todos.push(todoValue);
+    checked[todos.indexOf(todoValue)] = false;
   }
-  todos.push(todo);
-  checked[todos.indexOf(todo)] = false;
+  if (!isSave) {
+    let todoIndex = todos.indexOf(todoValue);
+    todos.splice(todoIndex, 1);
+    checked.splice(todoIndex, 1);
+  }
+  // Save to storage
   localStorage.setItem("todos", JSON.stringify(todos));
   localStorage.setItem("checked", JSON.stringify(checked));
 }
 
 // Create Todo element in DOM
-function createTodo(todoContent, todoIndex, checked) {
+function createTodo(todoValue, todoIndex, checked) {
   let li, divTodo, checkbox, span, buttonsDiv, btnEdit, btnDelete;
 
   li = document.createElement("li");
@@ -96,7 +107,7 @@ function createTodo(todoContent, todoIndex, checked) {
   span = document.createElement("span");
   span.classList.add("todo");
   divTodo.appendChild(span);
-  span.textContent = todoContent;
+  span.textContent = todoValue;
   li.appendChild(divTodo);
 
   //Buttons
@@ -113,8 +124,9 @@ function createTodo(todoContent, todoIndex, checked) {
   li.appendChild(buttonsDiv);
 
   todosList.appendChild(li);
-  // Load checked todos
+  // Check todo if completed
   if (todoIndex != null && checked !== null) {
+    // If function is called without parameters
     if (checked[todoIndex] === true) {
       checkbox.checked = true;
       span.style.textDecoration = "line-through";
@@ -127,16 +139,12 @@ function deleteTodo(e) {
   let item = e.target.parentElement;
 
   if (e.target.classList.contains("delete-button")) {
-    let todos = JSON.parse(localStorage.getItem("todos"));
-    let checked = JSON.parse(localStorage.getItem("checked"));
-    let todoIndex = todos.indexOf(item.parentElement.textContent);
-    item.parentElement.remove(); // Remove from DOM
-    // Remove todo from array and corresponding value from checked, using its index
-    todos.splice(todoIndex, 1);
-    checked.splice(todoIndex, 1);
-    // Save modified arrays to localStorage
-    localStorage.setItem("todos", JSON.stringify(todos));
-    localStorage.setItem("checked", JSON.stringify(checked));
+    let todoValue = item.parentElement.textContent;
+    // Remove from DOM
+    item.parentElement.remove();
+    let isSave = false;
+    // Store changes
+    saveToLocal(todoValue, isSave);
   }
 }
 
@@ -145,8 +153,8 @@ function editTodo(e) {
   if (e.target.classList.contains("edit-button")) {
     let todo = buttonsDiv.previousElementSibling.children[1];
     let oldText = todo.textContent;
-
     todo.setAttribute("contenteditable", "true");
+    // Set style
     todo.addEventListener("focus", function () {
       this.classList.add("is-focused");
     });
@@ -166,8 +174,8 @@ function editTodo(e) {
       let todos = JSON.parse(localStorage.getItem("todos"));
       todos[todos.indexOf(oldText)] = todo.textContent;
       localStorage.setItem("todos", JSON.stringify(todos));
-      btnConfirm.remove();
       todo.setAttribute("contenteditable", "false");
+      btnConfirm.remove();
     });
   }
 }
@@ -187,28 +195,13 @@ function checkCompleted(e) {
   }
 }
 
-function saveChecked(todo, isChecked) {
-  let todos, indexOfTodo, checked;
+function saveChecked(todoValue, isChecked) {
+  let todos, checked, indexOfTodo;
   todos = JSON.parse(localStorage.getItem("todos"));
-  indexOfTodo = todos.indexOf(todo);
+  checked = JSON.parse(localStorage.getItem("checked"));
+  indexOfTodo = todos.indexOf(todoValue);
 
-  if (checkStorage()) {
-    checked = JSON.parse(localStorage.getItem("checked"));
-  } else {
-    checked = [];
-  }
-
-  if (isChecked) {
-    if (
-      checked[indexOfTodo] === undefined ||
-      checked[indexOfTodo] === false ||
-      checked[indexOfTodo] === null
-    ) {
-      checked[indexOfTodo] = true;
-    }
-  }
-  if (!isChecked) {
-    checked[indexOfTodo] = false;
-  }
+  if (isChecked) checked[indexOfTodo] = true;
+  if (!isChecked) checked[indexOfTodo] = false;
   localStorage.setItem("checked", JSON.stringify(checked));
 }
