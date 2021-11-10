@@ -171,13 +171,23 @@ function editTodo(e) {
     }
     // Save edited todo
     btnConfirm.addEventListener("click", function () {
-      let todos = JSON.parse(localStorage.getItem("todos"));
-      todos[todos.indexOf(oldText)] = todo.textContent;
-      localStorage.setItem("todos", JSON.stringify(todos));
-      todo.setAttribute("contenteditable", "false");
-      btnConfirm.remove();
+      saveEdited(todo, oldText, btnConfirm);
+    });
+    todo.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        saveEdited(todo, oldText, btnConfirm);
+        todo.classList.remove("is-focused");
+      }
     });
   }
+}
+
+function saveEdited(todo, oldText, button) {
+  let todos = JSON.parse(localStorage.getItem("todos"));
+  todos[todos.indexOf(oldText)] = todo.textContent;
+  localStorage.setItem("todos", JSON.stringify(todos));
+  todo.setAttribute("contenteditable", "false");
+  button.remove();
 }
 
 function checkCompleted(e) {
