@@ -2,10 +2,11 @@
 const todoInput = document.querySelector(".todo-input");
 const addTodoBtn = document.querySelector(".add-todo");
 const todosList = document.querySelector(".todos-list");
+const clearAllBtn = document.querySelector(".clear-all");
 
 // Testing code
 ///////////////////////////////////////////////////////////////////////////
-const clear = document.querySelector(".clear");
+
 const local = document.querySelector(".get-local");
 
 function Data(todos, checked) {
@@ -13,10 +14,6 @@ function Data(todos, checked) {
   this.checked = checked;
 }
 
-clear.addEventListener("click", function (e) {
-  e.preventDefault();
-  localStorage.clear();
-});
 local.addEventListener("click", function (e) {
   e.preventDefault();
   let todos = JSON.parse(localStorage.getItem("todos"));
@@ -35,6 +32,7 @@ addTodoBtn.addEventListener("click", addTodo);
 todosList.addEventListener("click", deleteTodo);
 todosList.addEventListener("click", editTodo);
 todosList.addEventListener("click", checkCompleted);
+clearAllBtn.addEventListener("click", clearAll);
 
 // Functions
 
@@ -214,4 +212,11 @@ function saveChecked(todoValue, isChecked) {
   if (isChecked) checked[indexOfTodo] = true;
   if (!isChecked) checked[indexOfTodo] = false;
   localStorage.setItem("checked", JSON.stringify(checked));
+}
+function clearAll(e) {
+  e.preventDefault();
+  while (todosList.firstChild) {
+    todosList.removeChild(todosList.firstChild);
+  }
+  localStorage.clear();
 }
