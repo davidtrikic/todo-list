@@ -17,6 +17,8 @@ svg {
 }
 .buttons {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
 }
 .buttons button {
@@ -30,6 +32,7 @@ svg {
 .list-group-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .is-focused {
   background: #ddd;
@@ -37,9 +40,15 @@ svg {
   border-radius: 2px;
   outline: none;
 }
-.hidden {
-  display: none;
-}
+
 .top-border {
   border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+.timestamp {
+  width: 100%;
+  text-align: right;
+  font-size: 0.8rem;
+}
+.fa-info-circle {
+  font-size: 0.75rem;
 }
