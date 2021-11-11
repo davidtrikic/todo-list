@@ -11,7 +11,7 @@ svg {
   position: relative;
 }
 .todos {
-  max-width: 920px;
+  /* max-width: 920px; */
   margin-top: 1rem;
 }
 .form-check-input {
@@ -91,4 +91,9 @@ svg {
 }
 .hidden {
   opacity: 0;
+}
+.form-control,
+.form-control:focus {
+  border-color: transparent;
+  box-shadow: none;
 }

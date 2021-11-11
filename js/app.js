@@ -176,6 +176,7 @@ function editTodo(e) {
     // Save edited todo
     btnConfirm.addEventListener("click", function () {
       saveEdited(todo, oldText, btnConfirm);
+      tooltip.classList.add("hidden");
     });
     todo.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
