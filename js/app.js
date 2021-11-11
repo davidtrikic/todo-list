@@ -100,9 +100,16 @@ function createTodo(todoValue, todoIndex, checked) {
   buttonsDiv = document.createElement("div");
   buttonsDiv.classList.add("buttons");
   btnEdit = document.createElement("button");
+  btnEdit.setAttribute("data-bs-toggle", "tooltip");
+  btnEdit.setAttribute("data-bs-placement", "top");
+  btnEdit.setAttribute("title", "Edit todo");
   btnEdit.classList.add("edit-button");
   btnEdit.innerHTML = `<i class="fas fa-pencil-alt text-info"></i>`;
   btnDelete = document.createElement("button");
+  btnDelete.setAttribute("data-bs-toggle", "tooltip");
+  btnDelete.setAttribute("data-bs-placement", "top");
+
+  btnDelete.setAttribute("title", "Delete todo");
   btnDelete.classList.add("delete-button");
   btnDelete.innerHTML = `<i class="fas fa-trash-alt text-danger"></i>`;
   buttonsDiv.appendChild(btnEdit);
@@ -151,6 +158,9 @@ function editTodo(e) {
     });
     // Add edit confirmation button
     let btnConfirm = document.createElement("button");
+    btnConfirm.setAttribute("data-bs-toggle", "tooltip");
+    btnConfirm.setAttribute("data-bs-placement", "top");
+    btnConfirm.setAttribute("title", "Save changes");
     btnConfirm.classList.add("confirm-button");
     btnConfirm.innerHTML = `<i class="fas fa-check text-primary"></i>`;
     // Add button only once
