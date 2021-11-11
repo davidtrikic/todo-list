@@ -19,8 +19,6 @@ local.addEventListener("click", function (e) {
   e.preventDefault();
   let todos = JSON.parse(localStorage.getItem("todos"));
   let checked = JSON.parse(localStorage.getItem("checked"));
-  //   console.table(todos);
-  //   console.table(checked);
   var me = new Data(todos, checked);
   console.table(me);
 });
@@ -53,6 +51,7 @@ function createContent() {
   todos.forEach((todo, index) => {
     createTodo(todo, index, checked);
   });
+  fillEmptyContent();
 }
 
 function checkStorage() {
@@ -66,6 +65,9 @@ function addTodo(e) {
   let isSave = true;
   saveToLocal(todoInput.value, isSave);
   todoInput.value = "";
+  if (todosList.firstChild.classList.contains("empty-message")) {
+    todosList.firstChild.remove();
+  }
 }
 
 function saveToLocal(todoValue, isSave) {
@@ -142,6 +144,7 @@ function deleteTodo(e) {
     let isSave = false;
     // Store changes
     saveToLocal(todoValue, isSave);
+    fillEmptyContent();
   }
 }
 
@@ -222,6 +225,7 @@ function clearAll(e) {
     checked = [];
   localStorage.setItem("todos", JSON.stringify(todos));
   localStorage.setItem("checked", JSON.stringify(checked));
+  fillEmptyContent();
 }
 
 function filterTodos(e) {
@@ -252,4 +256,13 @@ function filterTodos(e) {
   });
   if (count === 1) todosList.classList.add("top-border");
   else todosList.classList.remove("top-border");
+}
+
+function fillEmptyContent() {
+  if (todosList.children.length === 0) {
+    let msg = document.createElement("p");
+    msg.textContent = "Your list is empty :( Consider adding some tasks!";
+    msg.classList.add("empty-message");
+    todosList.appendChild(msg);
+  }
 }
