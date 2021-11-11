@@ -5,26 +5,6 @@ const todosList = document.querySelector(".todos-list");
 const clearAllBtn = document.querySelector(".clear-all");
 const filterBtn = document.querySelector(".btn-group");
 
-// Testing code
-///////////////////////////////////////////////////////////////////////////
-
-const local = document.querySelector(".get-local");
-
-function Data(todos, checked) {
-  this.todos = todos;
-  this.checked = checked;
-}
-
-local.addEventListener("click", function (e) {
-  e.preventDefault();
-  let todos = JSON.parse(localStorage.getItem("todos"));
-  let checked = JSON.parse(localStorage.getItem("checked"));
-  var me = new Data(todos, checked);
-  console.table(me);
-});
-
-///////////////////////////////////////////////////////////////////////////
-
 // Event listeners
 document.addEventListener("DOMContentLoaded", createContent);
 addTodoBtn.addEventListener("click", addTodo);
@@ -92,7 +72,7 @@ function saveToLocal(todoValue, isSave) {
 
 // Create Todo element in DOM
 function createTodo(todoValue, todoIndex, checked) {
-  let li, divTodo, checkbox, span, buttonsDiv, btnEdit, btnDelete;
+  let li, divTodo, checkbox, span, timestamp, buttonsDiv, btnEdit, btnDelete;
 
   li = document.createElement("li");
   li.classList.add("list-group-item");
@@ -108,8 +88,11 @@ function createTodo(todoValue, todoIndex, checked) {
   divTodo.appendChild(span);
   span.textContent = todoValue;
   li.appendChild(divTodo);
-
-  //Buttons
+  // Timestamp
+  timestamp = document.createElement("p");
+  timestamp.classList.add("timestamp", "my-0");
+  timestamp.innerHTML = `<i class="fas fa-info-circle text-secondary"></i> ${getTimestamp()}`;
+  // Buttons
   buttonsDiv = document.createElement("div");
   buttonsDiv.classList.add("buttons");
   btnEdit = document.createElement("button");
@@ -120,6 +103,7 @@ function createTodo(todoValue, todoIndex, checked) {
   btnDelete.innerHTML = `<i class="fas fa-trash-alt text-danger"></i>`;
   buttonsDiv.appendChild(btnEdit);
   buttonsDiv.appendChild(btnDelete);
+  buttonsDiv.appendChild(timestamp);
   li.appendChild(buttonsDiv);
 
   todosList.appendChild(li);
@@ -265,4 +249,23 @@ function fillEmptyContent() {
     msg.classList.add("empty-message");
     todosList.appendChild(msg);
   }
+}
+
+function getTimestamp() {
+  const d = new Date();
+  let year = d.getFullYear();
+  let mth = addZero(d.getMonth() + 1);
+  let day = addZero(d.getDate());
+  let hour = addZero(d.getHours() + 1);
+  let min = addZero(d.getMinutes());
+
+  let timestamp = day + "-" + mth + "-" + year + " " + hour + ":" + min;
+
+  function addZero(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+  return timestamp;
 }
