@@ -85,8 +85,12 @@ function createTodo(todoValue, todoIndex, checked) {
   divTodo.appendChild(checkbox);
   span = document.createElement("span");
   span.classList.add("todo");
-  divTodo.appendChild(span);
   span.textContent = todoValue;
+  divTodo.appendChild(span);
+  let tooltip = document.createElement("span");
+  tooltip.classList.add("tooltip-edit", "hidden");
+  tooltip.textContent = "Click text to edit";
+  divTodo.appendChild(tooltip);
   li.appendChild(divTodo);
   // Timestamp
   timestamp = document.createElement("p");
@@ -153,6 +157,12 @@ function editTodo(e) {
     if (!buttonsDiv.children[0].classList.contains("confirm-button")) {
       buttonsDiv.prepend(btnConfirm);
     }
+    // Add tooltip
+    let tooltip = todo.nextElementSibling;
+    tooltip.classList.remove("hidden");
+    todo.addEventListener("click", function () {
+      tooltip.classList.add("hidden");
+    });
     // Save edited todo
     btnConfirm.addEventListener("click", function () {
       saveEdited(todo, oldText, btnConfirm);
@@ -199,17 +209,20 @@ function saveChecked(todoValue, isChecked) {
   if (!isChecked) checked[indexOfTodo] = false;
   localStorage.setItem("checked", JSON.stringify(checked));
 }
+
 function clearAll(e) {
   e.preventDefault();
-  while (todosList.firstChild) {
-    todosList.removeChild(todosList.firstChild);
+  if (confirm("Are you sure you want to delete all todos?")) {
+    while (todosList.firstChild) {
+      todosList.removeChild(todosList.firstChild);
+    }
+    todoInput.value = "";
+    let todos = [],
+      checked = [];
+    localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem("checked", JSON.stringify(checked));
+    fillEmptyContent();
   }
-  todoInput.value = "";
-  let todos = [],
-    checked = [];
-  localStorage.setItem("todos", JSON.stringify(todos));
-  localStorage.setItem("checked", JSON.stringify(checked));
-  fillEmptyContent();
 }
 
 function filterTodos(e) {

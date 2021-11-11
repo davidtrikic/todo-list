@@ -7,6 +7,9 @@ svg {
 .todo {
   user-select: none;
 }
+.todo-content {
+  position: relative;
+}
 .todos {
   max-width: 920px;
   margin-top: 1rem;
@@ -42,7 +45,7 @@ svg {
 }
 
 .top-border {
-  border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 .timestamp {
   width: 100%;
@@ -51,4 +54,41 @@ svg {
 }
 .fa-info-circle {
   font-size: 0.75rem;
+}
+.empty-message {
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 2px;
+}
+.tooltip-edit {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 120px;
+  padding: 0.25rem;
+  display: inline-block;
+  font-size: 0.85rem;
+  text-align: center;
+  background: rgba(70, 70, 70, 1);
+  color: #fff;
+  border-radius: 4px;
+  line-height: 1.5;
+  transition: opacity 0.5s ease;
+}
+.tooltip-edit::after {
+  content: "";
+  position: absolute;
+  left: 50px;
+  bottom: -5px;
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: rgba(70, 70, 70, 1);
+  transform: rotate(45deg);
+}
+.hidden {
+  opacity: 0;
 }
