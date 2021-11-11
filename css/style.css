@@ -37,3 +37,9 @@ svg {
   border-radius: 2px;
   outline: none;
 }
+.hidden {
+  display: none;
+}
+.top-border {
+  border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+}

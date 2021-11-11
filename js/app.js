@@ -3,6 +3,7 @@ const todoInput = document.querySelector(".todo-input");
 const addTodoBtn = document.querySelector(".add-todo");
 const todosList = document.querySelector(".todos-list");
 const clearAllBtn = document.querySelector(".clear-all");
+const filterBtn = document.querySelector(".btn-group");
 
 // Testing code
 ///////////////////////////////////////////////////////////////////////////
@@ -33,6 +34,7 @@ todosList.addEventListener("click", deleteTodo);
 todosList.addEventListener("click", editTodo);
 todosList.addEventListener("click", checkCompleted);
 clearAllBtn.addEventListener("click", clearAll);
+filterBtn.addEventListener("click", filterTodos);
 
 // Functions
 
@@ -55,10 +57,7 @@ function createContent() {
 
 function checkStorage() {
   // Check if localStorage is empty
-  return (
-    localStorage.getItem("todos") !== null &&
-    localStorage.getItem("checked") !== null
-  );
+  return localStorage.getItem("todos") !== null && localStorage.getItem("checked") !== null;
 }
 
 function addTodo(e) {
@@ -151,7 +150,7 @@ function editTodo(e) {
   if (e.target.classList.contains("edit-button")) {
     let todo = buttonsDiv.previousElementSibling.children[1];
     let oldText = todo.textContent;
-    todo.setAttribute("contenteditable", "true");
+    todo.contentEditable = "true";
     // Set style
     todo.addEventListener("focus", function () {
       this.classList.add("is-focused");
@@ -184,7 +183,7 @@ function saveEdited(todo, oldText, button) {
   let todos = JSON.parse(localStorage.getItem("todos"));
   todos[todos.indexOf(oldText)] = todo.textContent;
   localStorage.setItem("todos", JSON.stringify(todos));
-  todo.setAttribute("contenteditable", "false");
+  todo.contentEditable = "false";
   button.remove();
 }
 
@@ -218,5 +217,39 @@ function clearAll(e) {
   while (todosList.firstChild) {
     todosList.removeChild(todosList.firstChild);
   }
-  localStorage.clear();
+  todoInput.value = "";
+  let todos = [],
+    checked = [];
+  localStorage.setItem("todos", JSON.stringify(todos));
+  localStorage.setItem("checked", JSON.stringify(checked));
+}
+
+function filterTodos(e) {
+  let list = todosList.childNodes;
+  for (let li of list) {
+    if (e.target.classList.contains("all")) {
+      li.style.display = "flex";
+    }
+    if (e.target.classList.contains("completed")) {
+      if (li.childNodes[0].firstChild.checked) {
+        li.style.display = "flex";
+      } else {
+        li.style.display = "none";
+      }
+    }
+    if (e.target.classList.contains("uncompleted")) {
+      if (li.childNodes[0].firstChild.checked) {
+        li.style.display = "none";
+      } else {
+        li.style.display = "flex";
+      }
+    }
+  }
+  // Display top border if only one li element displayed (bootstrap's quirk)
+  let count = 0;
+  list.forEach((li) => {
+    if (li.style.display === "flex") count++;
+  });
+  if (count === 1) todosList.classList.add("top-border");
+  else todosList.classList.remove("top-border");
 }
