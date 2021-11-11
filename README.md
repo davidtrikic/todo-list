@@ -4,6 +4,6 @@ Javascript TODO List - Bootstrap - LocalStorage
 
 #TODO
 
-- tooltips
 - border fix
-- modal
+- modal for clear all
+- disable clear all
