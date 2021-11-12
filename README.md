@@ -4,8 +4,6 @@ Javascript TODO List - Bootstrap - LocalStorage
 
 #TODO
 
-- fix height -client height and wrapper height
-- border fix
-- fix filter when empty
+- i hover
 - modal for clear all
 - disable clear all
