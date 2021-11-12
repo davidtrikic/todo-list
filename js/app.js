@@ -241,26 +241,29 @@ function clearAll(e) {
 
 function filterTodos(e) {
   let list = todosList.childNodes;
-  for (let li of list) {
-    if (e.target.classList.contains("all")) {
-      li.style.display = "flex";
-      li.style.setProperty("border-top-width", "0px");
-    }
-    if (e.target.classList.contains("completed")) {
-      if (li.childNodes[0].firstChild.checked) {
+  if (todosList.childNodes[0].classList.contains("list-group-item")) {
+    for (let li of list) {
+      if (e.target.classList.contains("all")) {
         li.style.display = "flex";
-      } else {
-        li.style.display = "none";
+        li.style.setProperty("border-top-width", "0px");
       }
-    }
-    if (e.target.classList.contains("uncompleted")) {
-      if (li.childNodes[0].firstChild.checked) {
-        li.style.display = "none";
-      } else {
-        li.style.display = "flex";
+      if (e.target.classList.contains("completed")) {
+        if (li.childNodes[0].firstChild.checked) {
+          li.style.display = "flex";
+        } else {
+          li.style.display = "none";
+        }
+      }
+      if (e.target.classList.contains("uncompleted")) {
+        if (li.childNodes[0].firstChild.checked) {
+          li.style.display = "none";
+        } else {
+          li.style.display = "flex";
+        }
       }
     }
   }
+
   // Display top border if only one li element displayed (bootstrap's quirk)
   if (e.target.classList.contains("dropdown-item")) {
     for (let node of list) {
