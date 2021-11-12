@@ -1,3 +1,6 @@
+:root {
+  /* --todo-size: 0; */
+}
 li {
   list-style-type: none;
 }
@@ -9,15 +12,22 @@ svg {
   max-width: 960px;
   margin: 0 auto;
   background-color: #eff1f2;
+  border-radius: 8px;
+}
+.card {
+  border-radius: 8px;
+}
+.todos {
+  margin-top: 1rem;
 }
 .todo {
+  display: inline-block;
   user-select: none;
 }
 .todo-content {
   position: relative;
-}
-.todos {
-  margin-top: 1rem;
+  margin-bottom: 0;
+  width: 100%;
 }
 .form-check-input {
   position: relative;
@@ -34,25 +44,23 @@ svg {
   background: none;
   border: none;
 }
-.buttons button:hover i {
+.buttons button:hover {
   cursor: pointer;
 }
+
 .list-group-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 .is-focused {
-  background: #ddd;
+  background: #eff1f2;
   padding: 3px 5px;
   border-radius: 2px;
   outline: none;
 }
-.top-border {
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
-}
 .timestamp {
   width: 100%;
+  min-width: 120px;
   text-align: right;
   font-size: 0.8rem;
 }
@@ -65,7 +73,7 @@ svg {
   font-size: 1.5rem;
   color: rgb(104, 104, 104);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+  border-radius: 8px;
 }
 .tooltip-edit {
   position: absolute;
