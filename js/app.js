@@ -48,6 +48,7 @@ function addTodo(e) {
   if (todosList.firstChild.classList.contains("empty-message")) {
     todosList.firstChild.remove();
   }
+  fixHeight();
 }
 
 function saveToLocal(todoValue, isSave) {
@@ -141,6 +142,7 @@ function deleteTodo(e) {
     saveToLocal(todoValue, isSave);
     fillEmptyContent();
   }
+  fixHeight();
 }
 
 function editTodo(e) {
@@ -233,6 +235,7 @@ function clearAll(e) {
     localStorage.setItem("todos", JSON.stringify(todos));
     localStorage.setItem("checked", JSON.stringify(checked));
     fillEmptyContent();
+    fixHeight();
   }
 }
 
@@ -241,6 +244,7 @@ function filterTodos(e) {
   for (let li of list) {
     if (e.target.classList.contains("all")) {
       li.style.display = "flex";
+      li.style.setProperty("border-top-width", "0px");
     }
     if (e.target.classList.contains("completed")) {
       if (li.childNodes[0].firstChild.checked) {
@@ -258,19 +262,23 @@ function filterTodos(e) {
     }
   }
   // Display top border if only one li element displayed (bootstrap's quirk)
-  let count = 0;
-  list.forEach((li) => {
-    if (li.style.display === "flex") count++;
-  });
-  if (count === 1) todosList.classList.add("top-border");
-  else todosList.classList.remove("top-border");
+  if (e.target.classList.contains("dropdown-item")) {
+    for (let node of list) {
+      if (node.style.display === "flex") {
+        let compStyles = window.getComputedStyle(node);
+        let borderWidth = compStyles.getPropertyValue("border-top-width").slice(0, 1);
+        if (borderWidth === "0") node.style.setProperty("border-top-width", "1px");
+        break;
+      }
+    }
+  }
 }
 
 function fillEmptyContent() {
   if (todosList.children.length === 0) {
     let msg = document.createElement("p");
     msg.textContent = "Your list is empty :( Consider adding some tasks!";
-    msg.classList.add("empty-message");
+    msg.classList.add("empty-message", "my-4");
     todosList.appendChild(msg);
   }
 }
@@ -292,4 +300,14 @@ function getTimestamp() {
     return i;
   }
   return timestamp;
+}
+
+function fixHeight() {
+  const wrapper = document.querySelector(".wrapper");
+  const root = document.documentElement;
+  if (wrapper.clientHeight > root.clientHeight) {
+    wrapper.classList.remove("position-absolute", "top-50", "start-50", "translate-middle");
+  } else {
+    wrapper.classList.add("position-absolute", "top-50", "start-50", "translate-middle");
+  }
 }
