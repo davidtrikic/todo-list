@@ -4,6 +4,12 @@ li {
 svg {
   pointer-events: none;
 }
+.wrapper {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  background-color: #eff1f2;
+}
 .todo {
   user-select: none;
 }
@@ -11,7 +17,6 @@ svg {
   position: relative;
 }
 .todos {
-  /* max-width: 920px; */
   margin-top: 1rem;
 }
 .form-check-input {
@@ -43,7 +48,6 @@ svg {
   border-radius: 2px;
   outline: none;
 }
-
 .top-border {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
@@ -59,8 +63,8 @@ svg {
   padding: 2rem 0;
   text-align: center;
   font-size: 1.5rem;
-  color: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  color: rgb(104, 104, 104);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 2px;
 }
 .tooltip-edit {
@@ -96,4 +100,10 @@ svg {
 .form-control:focus {
   border-color: transparent;
   box-shadow: none;
+}
+
+@media screen and (max-width: 470px) {
+  body {
+    font-size: 14px;
+  }
 }
