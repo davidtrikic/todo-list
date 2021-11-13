@@ -5,5 +5,5 @@ Javascript TODO List - Bootstrap - LocalStorage
 #TODO
 
 - i hover
-- modal for clear all
-- disable clear all
+- custom confirm modal
+- disable clear all when empty
