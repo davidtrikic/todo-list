@@ -73,43 +73,45 @@ function saveToLocal(todoValue, isSave) {
 
 // Create Todo element in DOM
 function createTodo(todoValue, todoIndex, checked) {
-  let li, divTodo, checkbox, span, timestamp, buttonsDiv, btnEdit, btnDelete;
-
-  li = document.createElement("li");
+  let li = document.createElement("li");
   li.classList.add("list-group-item");
-  divTodo = document.createElement("div");
+  let divTodo = document.createElement("div");
   divTodo.classList.add("todo-content");
-  checkbox = document.createElement("input");
+  // Checkbox
+  let checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
   checkbox.classList.add("form-check-input", "me-2");
-
   divTodo.appendChild(checkbox);
-  span = document.createElement("span");
+  // Todo
+  let span = document.createElement("span");
   span.classList.add("todo");
   span.textContent = todoValue;
   divTodo.appendChild(span);
+  // Tooltip
   let tooltip = document.createElement("span");
   tooltip.classList.add("tooltip-edit", "hidden");
   tooltip.textContent = "Click text to edit";
   divTodo.appendChild(tooltip);
   li.appendChild(divTodo);
   // Timestamp
-  timestamp = document.createElement("p");
+  let timestamp = document.createElement("p");
+  timestamp.setAttribute("data-bs-toggle", "tooltip");
   timestamp.classList.add("timestamp", "my-0");
+  timestamp.setAttribute("data-bs-placement", "top");
+  timestamp.setAttribute("title", "Created date");
   timestamp.innerHTML = `<i class="fas fa-info-circle text-secondary"></i> ${getTimestamp()}`;
   // Buttons
-  buttonsDiv = document.createElement("div");
+  let buttonsDiv = document.createElement("div");
   buttonsDiv.classList.add("buttons");
-  btnEdit = document.createElement("button");
+  let btnEdit = document.createElement("button");
   btnEdit.setAttribute("data-bs-toggle", "tooltip");
   btnEdit.setAttribute("data-bs-placement", "top");
   btnEdit.setAttribute("title", "Edit todo");
   btnEdit.classList.add("edit-button");
   btnEdit.innerHTML = `<i class="fas fa-pencil-alt text-info"></i>`;
-  btnDelete = document.createElement("button");
+  let btnDelete = document.createElement("button");
   btnDelete.setAttribute("data-bs-toggle", "tooltip");
   btnDelete.setAttribute("data-bs-placement", "top");
-
   btnDelete.setAttribute("title", "Delete todo");
   btnDelete.classList.add("delete-button");
   btnDelete.innerHTML = `<i class="fas fa-trash-alt text-danger"></i>`;
@@ -117,7 +119,6 @@ function createTodo(todoValue, todoIndex, checked) {
   buttonsDiv.appendChild(btnDelete);
   buttonsDiv.appendChild(timestamp);
   li.appendChild(buttonsDiv);
-
   todosList.appendChild(li);
   // Check todo if completed
   if (todoIndex != null && checked !== null) {
@@ -281,7 +282,7 @@ function fillEmptyContent() {
   if (todosList.children.length === 0) {
     let msg = document.createElement("p");
     msg.textContent = "Your list is empty :( Consider adding some tasks!";
-    msg.classList.add("empty-message", "my-4");
+    msg.classList.add("empty-message");
     todosList.appendChild(msg);
   }
 }
