@@ -57,6 +57,7 @@ svg {
   min-width: 85px;
 }
 .buttons button {
+  display: block;
   margin: 0 2px;
   background: none;
   border: none;
@@ -119,11 +120,6 @@ svg {
 
 /* Media queries */
 
-@media screen and (max-width: 470px) {
-  body {
-    font-size: 14px;
-  }
-}
 @media screen and (min-width: 576px) and (max-width: 768px) {
   .wrapper {
     max-width: 576px;
