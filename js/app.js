@@ -4,6 +4,7 @@ const todoInput = document.querySelector(".todo-input");
 const addTodoBtn = document.querySelector(".add-todo");
 const todosList = document.querySelector(".todos-list");
 const clearAllBtn = document.querySelector(".clear-all");
+const clearAllConfirm = document.querySelector(".clear-all-confirm");
 const filterBtn = document.querySelector(".btn-group");
 const wrapper = document.querySelector(".wrapper");
 
@@ -13,7 +14,7 @@ addTodoBtn.addEventListener("click", addTodo);
 todosList.addEventListener("click", deleteTodo);
 todosList.addEventListener("click", editTodo);
 todosList.addEventListener("click", checkCompleted);
-clearAllBtn.addEventListener("click", clearAll);
+clearAllConfirm.addEventListener("click", clearAll);
 filterBtn.addEventListener("click", filterTodos);
 
 // Functions
@@ -52,6 +53,7 @@ function addTodo(e) {
     todosList.firstChild.remove();
   }
   fixHeight();
+  fillEmptyContent();
 }
 
 function saveToLocal(todoValue, isSave) {
@@ -191,6 +193,7 @@ function editTodo(e) {
       if (e.key === "Enter") {
         saveEdited(todo, oldText, btnConfirm);
         todo.classList.remove("is-focused");
+        tooltip.classList.add("hidden");
       }
     });
   }
@@ -232,18 +235,17 @@ function saveChecked(todoValue, isChecked) {
 
 function clearAll(e) {
   e.preventDefault();
-  if (confirm("Are you sure you want to delete all todos?")) {
-    while (todosList.firstChild) {
-      todosList.removeChild(todosList.firstChild);
-    }
-    todoInput.value = "";
-    let todos = [],
-      checked = [];
-    localStorage.setItem("todos", JSON.stringify(todos));
-    localStorage.setItem("checked", JSON.stringify(checked));
-    fillEmptyContent();
-    fixHeight();
+  while (todosList.firstChild) {
+    todosList.removeChild(todosList.firstChild);
   }
+
+  todoInput.value = "";
+  let todos = [],
+    checked = [];
+  localStorage.setItem("todos", JSON.stringify(todos));
+  localStorage.setItem("checked", JSON.stringify(checked));
+  fillEmptyContent();
+  fixHeight();
 }
 
 function filterTodos(e) {
@@ -286,11 +288,15 @@ function filterTodos(e) {
 
 function fillEmptyContent() {
   if (todosList.children.length === 0) {
+    // Disable buttons
+    clearAllBtn.setAttribute("disabled", "");
     let msg = document.createElement("p");
     msg.textContent = "Your list is empty :( Consider adding some tasks!";
     msg.classList.add("empty-message");
     todosList.appendChild(msg);
+    return;
   }
+  clearAllBtn.removeAttribute("disabled");
 }
 
 function getTimestamp() {
@@ -317,5 +323,5 @@ function fixHeight() {
     wrapper.classList.remove("position-absolute", "top-50", "start-50", "translate-middle");
     return;
   }
-  wrapper.classList.add("position-absolute", "top-50", "start-50", "translate-middle");
+  wrapper.classList.remove("position-absolute", "top-50", "start-50", "translate-middle");
 }
