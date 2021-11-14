@@ -135,6 +135,9 @@ svg {
 /* Media queries */
 
 @media screen and (max-width: 576px) {
+  .wrapper {
+    margin: 1rem 0;
+  }
   .form-check-input {
     transform: scale(1.2);
   }

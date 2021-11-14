@@ -1,9 +1,11 @@
 // Elements
+const root = document.documentElement;
 const todoInput = document.querySelector(".todo-input");
 const addTodoBtn = document.querySelector(".add-todo");
 const todosList = document.querySelector(".todos-list");
 const clearAllBtn = document.querySelector(".clear-all");
 const filterBtn = document.querySelector(".btn-group");
+const wrapper = document.querySelector(".wrapper");
 
 // Event listeners
 document.addEventListener("DOMContentLoaded", createContent);
@@ -32,6 +34,7 @@ function createContent() {
     createTodo(todo, index, checked);
   });
   fillEmptyContent();
+  fixHeight();
 }
 
 function checkStorage() {
@@ -310,12 +313,9 @@ function getTimestamp() {
 }
 
 function fixHeight() {
-  const wrapper = document.querySelector(".wrapper");
-  const root = document.documentElement;
-
-  if (wrapper.clientHeight > root.clientHeight && root.clientWidth < 576) {
+  if (wrapper.clientHeight > root.clientHeight || root.clientWidth < 576) {
     wrapper.classList.remove("position-absolute", "top-50", "start-50", "translate-middle");
-  } else {
-    wrapper.classList.add("position-absolute", "top-50", "start-50", "translate-middle");
+    return;
   }
+  wrapper.classList.add("position-absolute", "top-50", "start-50", "translate-middle");
 }
