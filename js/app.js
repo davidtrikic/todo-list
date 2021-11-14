@@ -101,6 +101,8 @@ function createTodo(todoValue, todoIndex, checked) {
   timestamp.setAttribute("title", "Created date");
   timestamp.innerHTML = `<i class="fas fa-info-circle text-secondary"></i> ${getTimestamp()}`;
   // Buttons
+  let controlsWrapper = document.createElement("div");
+  controlsWrapper.classList.add("controls-wrapper");
   let buttonsDiv = document.createElement("div");
   buttonsDiv.classList.add("buttons");
   let btnEdit = document.createElement("button");
@@ -117,8 +119,9 @@ function createTodo(todoValue, todoIndex, checked) {
   btnDelete.innerHTML = `<i class="fas fa-trash-alt text-danger"></i>`;
   buttonsDiv.appendChild(btnEdit);
   buttonsDiv.appendChild(btnDelete);
-  buttonsDiv.appendChild(timestamp);
-  li.appendChild(buttonsDiv);
+  controlsWrapper.appendChild(buttonsDiv);
+  controlsWrapper.appendChild(timestamp);
+  li.appendChild(controlsWrapper);
   todosList.appendChild(li);
   // Check todo if completed
   if (todoIndex != null && checked !== null) {
@@ -132,12 +135,11 @@ function createTodo(todoValue, todoIndex, checked) {
 }
 
 function deleteTodo(e) {
-  let item = e.target.parentElement;
-
   if (e.target.classList.contains("delete-button")) {
-    let todoValue = item.parentElement.textContent;
+    let todoDiv = e.target.parentElement.parentElement.previousElementSibling;
+    let todoValue = todoDiv.children[1].textContent;
     // Remove from DOM
-    item.parentElement.remove();
+    todoDiv.parentElement.remove();
     let isSave = false;
     // Store changes
     saveToLocal(todoValue, isSave);
@@ -148,8 +150,9 @@ function deleteTodo(e) {
 
 function editTodo(e) {
   let buttonsDiv = e.target.parentElement;
+
   if (e.target.classList.contains("edit-button")) {
-    let todo = buttonsDiv.previousElementSibling.children[1];
+    let todo = buttonsDiv.parentElement.previousElementSibling.children[1];
     let oldText = todo.textContent;
     todo.contentEditable = "true";
     // Set style

@@ -7,7 +7,7 @@ svg {
 .wrapper {
   width: 100%;
   max-width: 960px;
-  min-width: 285px;
+  min-width: 220px;
   margin: 0 auto;
   background-color: #eff1f2;
   border-radius: 8px;
@@ -48,13 +48,18 @@ svg {
   position: relative;
   top: 1px;
 }
+.controls-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  min-width: 125px;
+}
 .buttons {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
-  width: 15%;
-  min-width: 85px;
 }
 .buttons button {
   display: block;
@@ -65,6 +70,9 @@ svg {
 .buttons button:hover {
   cursor: pointer;
 }
+.delete-button {
+  padding-right: 0;
+}
 .is-focused {
   background: #eff1f2;
   padding: 3px 5px;
@@ -72,7 +80,6 @@ svg {
   outline: none;
 }
 .timestamp {
-  width: 100%;
   text-align: right;
   font-size: 0.8rem;
 }
@@ -120,6 +127,11 @@ svg {
 
 /* Media queries */
 
+@media screen and (max-width: 576px) {
+  .controls-wrapper {
+    min-width: 85px;
+  }
+}
 @media screen and (min-width: 576px) and (max-width: 768px) {
   .wrapper {
     max-width: 576px;
