@@ -11,6 +11,7 @@ svg {
   margin: 0 auto;
   background-color: #eff1f2;
   border-radius: 8px;
+  overflow-x: hidden;
 }
 .add-todo {
   box-shadow: 0 0.2rem 0.25rem rgba(0, 0, 0, 0.075);
@@ -136,7 +137,7 @@ svg {
 
 @media screen and (max-width: 576px) {
   .wrapper {
-    margin: 1rem 0;
+    margin: 1rem auto;
   }
   .form-check-input {
     transform: scale(1.2);
@@ -147,7 +148,7 @@ svg {
   .buttons button {
     transform: scale(1.1);
   }
-  button:active {
+  .add-todo:active {
     transform: scale(1.2);
   }
   .timestamp {
