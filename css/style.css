@@ -62,7 +62,6 @@ svg {
 .buttons {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
 }
@@ -137,13 +136,16 @@ svg {
 
 @media screen and (max-width: 576px) {
   .form-check-input {
-    transform: scale(1.1);
+    transform: scale(1.2);
   }
   .controls-wrapper {
     min-width: 85px;
   }
   .buttons button {
     transform: scale(1.1);
+  }
+  button:active {
+    transform: scale(1.2);
   }
   .timestamp {
     font-size: 0.7rem;

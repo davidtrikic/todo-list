@@ -312,7 +312,8 @@ function getTimestamp() {
 function fixHeight() {
   const wrapper = document.querySelector(".wrapper");
   const root = document.documentElement;
-  if (wrapper.clientHeight > root.clientHeight) {
+
+  if (wrapper.clientHeight > root.clientHeight && root.clientWidth < 576) {
     wrapper.classList.remove("position-absolute", "top-50", "start-50", "translate-middle");
   } else {
     wrapper.classList.add("position-absolute", "top-50", "start-50", "translate-middle");
