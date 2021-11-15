@@ -284,6 +284,7 @@ function filterTodos(e) {
       }
     }
   }
+  fixHeight();
 }
 
 function fillEmptyContent() {
