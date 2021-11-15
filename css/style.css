@@ -1,9 +1,13 @@
 :root {
   --body-height: 0;
 }
-
+html {
+  height: -webkit-fill-available;
+}
 body {
-  height: calc(var(--body-height) - 3rem);
+  min-height: calc(var(--body-height) - 3rem);
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
   background: hsla(221, 45%, 73%, 1);
   background: linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%);
   background: -moz-linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%);
