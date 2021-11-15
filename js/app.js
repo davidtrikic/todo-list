@@ -319,9 +319,9 @@ function getTimestamp() {
 }
 
 function fixHeight() {
-  if (wrapper.clientHeight > root.clientHeight || root.clientWidth < 576) {
-    wrapper.classList.remove("position-absolute", "top-50", "start-50", "translate-middle");
+  if (wrapper.clientHeight < root.clientHeight) {
+    root.style.setProperty("--body-height", "100vh");
     return;
   }
-  wrapper.classList.remove("position-absolute", "top-50", "start-50", "translate-middle");
+  root.style.setProperty("--body-height", "0");
 }
