@@ -1,14 +1,8 @@
 :root {
-  --body-height: 0;
-}
-html {
-  height: -webkit-fill-available;
+  --wrapper-margin: 3rem auto;
 }
 body {
-  /* min-height: calc(var(--body-height) - 3rem); */
   min-height: 100vh;
-  /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
   background: hsla(221, 45%, 73%, 1);
   background: linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%);
   background: -moz-linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%);
@@ -30,8 +24,7 @@ svg {
   width: 100%;
   max-width: 960px;
   min-width: 220px;
-  margin: 0 auto;
-  margin-top: 3rem;
+  margin: var(--wrapper-margin);
   background-color: #eff1f2;
   border-radius: 8px;
   overflow-x: hidden;
@@ -160,9 +153,6 @@ svg {
 /* Media queries */
 
 @media screen and (max-width: 576px) {
-  .wrapper {
-    margin: 1rem auto;
-  }
   .form-check-input {
     transform: scale(1.2);
   }
