@@ -320,8 +320,8 @@ function getTimestamp() {
 }
 
 function fixHeight() {
-  if (wrapper.clientHeight < root.clientHeight && root.clientWidth > 576) {
-    root.style.setProperty("--body-height", `${window.innerHeight}`);
+  if (wrapper.clientHeight < root.clientHeight && root.clientWidth < 576) {
+    root.style.setProperty("--body-height", "100vh");
     return;
   }
   root.style.setProperty("--body-height", "0");
