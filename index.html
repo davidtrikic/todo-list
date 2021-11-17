@@ -13,11 +13,14 @@
     <title>Todo List</title>
   </head>
   <body class="">
+    <!-- wrapper -->
     <div class="wrapper p-1 pb-5 p-sm-4 shadow-lg">
+      <!-- Title -->
       <h1 class="h1 text-center mt-5 mb-4 pb-3">
         <i class="fas fa-check-square me-1"></i>
         <u>My Todo-s</u>
       </h1>
+      <!-- Add Todo Form -->
       <form class="row justify-content-center">
         <div class="col-md-8">
           <div class="card mb-2 shadow-sm">
@@ -39,6 +42,7 @@
         </div>
       </form>
       <hr class="mt-1 my-sm-3" />
+      <!-- Clear and Filter buttons -->
       <div class="d-flex justify-content-end">
         <button
           class="clear-all btn btn-sm btn-danger d-block px-3"
@@ -63,11 +67,11 @@
           </ul>
         </div>
       </div>
+      <!-- Todos list -->
       <section class="todos">
         <ul class="todos-list list-group shadow-sm"></ul>
       </section>
-
-      <!-- Modal -->
+      <!-- Modal for Delete All -->
       <div
         class="modal fade"
         id="staticBackdrop"

@@ -5,7 +5,6 @@
 }
 body {
   min-height: 100vh;
-  /* height: -webkit-fill-available; */
   background: rgba(13, 43, 77, 1);
   background: -webkit-linear-gradient(left, rgba(13, 43, 77, 1), rgba(7, 59, 121, 1));
   background: -moz-linear-gradient(left, rgba(13, 43, 77, 1), rgba(7, 59, 121, 1));
@@ -34,6 +33,7 @@ h1 {
   overflow-x: hidden;
   z-index: 1;
 }
+/* Add to-do form */
 .add-todo {
   color: #fff;
   background-color: var(--clr-blue-main);
@@ -50,6 +50,7 @@ h1 {
 .card {
   border-radius: 8px;
 }
+/* Generated (todo) list */
 .todos {
   margin-top: 1rem;
 }
