@@ -20,10 +20,14 @@ filterBtn.addEventListener("click", filterTodos);
 // Functions
 
 function createContent() {
+  // Check if cookies are disabled
+  if (!navigator.cookieEnabled)
+    alert("To enable local storage, you must allow cookies on this page");
   // Set storage
   if (!checkStorage()) {
     let todos = [],
       checked = [];
+
     localStorage.setItem("todos", JSON.stringify(todos));
     localStorage.setItem("checked", JSON.stringify(checked));
   }
