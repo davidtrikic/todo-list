@@ -115,7 +115,7 @@ function createTodo(todoValue, todoIndex, checked) {
   btnEdit.setAttribute("data-bs-placement", "top");
   btnEdit.setAttribute("title", "Edit todo");
   btnEdit.classList.add("edit-button");
-  btnEdit.innerHTML = `<i class="fas fa-pencil-alt text-info"></i>`;
+  btnEdit.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
   let btnDelete = document.createElement("button");
   btnDelete.setAttribute("data-bs-toggle", "tooltip");
   btnDelete.setAttribute("data-bs-placement", "top");
@@ -173,7 +173,7 @@ function editTodo(e) {
     btnConfirm.setAttribute("data-bs-placement", "top");
     btnConfirm.setAttribute("title", "Save changes");
     btnConfirm.classList.add("confirm-button");
-    btnConfirm.innerHTML = `<i class="fas fa-check text-primary"></i>`;
+    btnConfirm.innerHTML = `<i class="fas fa-check"></i>`;
     // Add button only once
     if (!buttonsDiv.children[0].classList.contains("confirm-button")) {
       buttonsDiv.prepend(btnConfirm);

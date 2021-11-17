@@ -1,16 +1,17 @@
 :root {
   --wrapper-margin: 3rem auto;
+  --clr-blue-main: rgb(0, 78, 180);
+  --clr-blue-background: #09315e;
 }
 body {
   min-height: 100vh;
-  background: hsla(221, 45%, 73%, 1);
-  background: linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%);
-  background: -moz-linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%);
-  background: -webkit-linear-gradient(
-    90deg,
-    hsla(221, 45%, 73%, 1) 0%,
-    hsla(220, 78%, 29%, 1) 100%
-  );
+  /* height: -webkit-fill-available; */
+  background: rgba(13, 43, 77, 1);
+  background: -webkit-linear-gradient(left, rgba(13, 43, 77, 1), rgba(7, 59, 121, 1));
+  background: -moz-linear-gradient(left, rgba(13, 43, 77, 1), rgba(7, 59, 121, 1));
+  background: linear-gradient(to right, rgba(13, 43, 77, 1), rgba(7, 59, 121, 1));
+  background-color: var(--clr-blue-background);
+  background-image: url(../images/Hexagon.svg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -19,6 +20,9 @@ li {
 }
 svg {
   pointer-events: none;
+}
+h1 {
+  color: var(--clr-blue-main);
 }
 .wrapper {
   width: 100%;
@@ -31,9 +35,10 @@ svg {
   z-index: 1;
 }
 .add-todo {
+  color: #fff;
+  background-color: var(--clr-blue-main);
   box-shadow: 0 0.2rem 0.25rem rgba(0, 0, 0, 0.075);
 }
-.add-todo:hover,
 .add-todo:active {
   box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.08);
 }
@@ -94,6 +99,12 @@ svg {
 }
 .buttons button:hover {
   cursor: pointer;
+}
+.confirm-button {
+  color: var(--clr-blue-main);
+}
+.edit-button {
+  color: #2d898b;
 }
 .delete-button {
   padding-right: 0;

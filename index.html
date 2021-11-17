@@ -14,7 +14,7 @@
   </head>
   <body class="">
     <div class="wrapper p-1 pb-5 p-sm-4 shadow-lg">
-      <h1 class="h1 text-center mt-5 mb-4 pb-3 text-primary">
+      <h1 class="h1 text-center mt-5 mb-4 pb-3">
         <i class="fas fa-check-square me-1"></i>
         <u>My Todo-s</u>
       </h1>
@@ -28,10 +28,10 @@
                   name=""
                   class="todo-input form-control form-control-lg"
                   placeholder="Add new todo..."
-                  maxlength=""
+                  maxlength="200"
                 />
                 <div>
-                  <button class="add-todo btn btn-primary">ADD</button>
+                  <button class="add-todo btn">ADD</button>
                 </div>
               </div>
             </div>
@@ -49,7 +49,7 @@
         </button>
         <div class="btn-group">
           <button
-            class="btn btn-info btn-sm dropdown-toggle ms-2 text-white px-3"
+            class="btn btn-sm btn-warning dropdown-toggle ms-2 text-white px-3"
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
