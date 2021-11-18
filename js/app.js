@@ -118,6 +118,7 @@ function createTodo(todoValue, todoIndex, checked) {
   btnEdit.setAttribute("data-bs-toggle", "tooltip");
   btnEdit.setAttribute("data-bs-placement", "top");
   btnEdit.setAttribute("title", "Edit todo");
+  if (span.textContent === "") btnEdit.style.visibility = "hidden";
   btnEdit.classList.add("edit-button");
   btnEdit.innerHTML = `<i class="fas fa-pencil-alt"></i>`;
   let btnDelete = document.createElement("button");
@@ -163,6 +164,7 @@ function editTodo(e) {
   if (e.target.classList.contains("edit-button")) {
     let todo = buttonsDiv.parentElement.previousElementSibling.children[1];
     let oldText = todo.textContent;
+
     todo.contentEditable = "true";
     // Set style
     todo.addEventListener("focus", function () {
