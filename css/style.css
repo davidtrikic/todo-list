@@ -5,14 +5,19 @@
 }
 body {
   min-height: 100vh;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  display: block;
+  inset: 0;
   background: rgba(13, 43, 77, 1);
-  background: -webkit-linear-gradient(left, rgba(13, 43, 77, 1), rgba(7, 59, 121, 1));
-  background: -moz-linear-gradient(left, rgba(13, 43, 77, 1), rgba(7, 59, 121, 1));
-  background: linear-gradient(to right, rgba(13, 43, 77, 1), rgba(7, 59, 121, 1));
-  background-color: var(--clr-blue-background);
   background-image: url(../images/Hexagon.svg);
-  background-repeat: no-repeat;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 li {
   list-style-type: none;
