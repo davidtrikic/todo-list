@@ -53,9 +53,6 @@ function addTodo(e) {
   let isSave = true;
   saveToLocal(todoInput.value, isSave);
   todoInput.value = "";
-  if (todosList.firstChild.classList.contains("empty-message")) {
-    todosList.firstChild.remove();
-  }
   fixHeight();
   fillEmptyContent();
 }
@@ -149,13 +146,16 @@ function deleteTodo(e) {
     let todoDiv = e.target.parentElement.parentElement.previousElementSibling;
     let todoValue = todoDiv.children[1].textContent;
     // Remove from DOM
-    todoDiv.parentElement.remove();
-    let isSave = false;
-    // Store changes
-    saveToLocal(todoValue, isSave);
-    fillEmptyContent();
+    todoDiv.parentElement.classList.add("animation");
+    todoDiv.parentElement.addEventListener("transitionend", function () {
+      todoDiv.parentElement.remove();
+      let isSave = false;
+      // Store changes
+      saveToLocal(todoValue, isSave);
+      fillEmptyContent();
+    });
+    fixHeight();
   }
-  fixHeight();
 }
 
 function editTodo(e) {
@@ -296,12 +296,15 @@ function filterTodos(e) {
 function fillEmptyContent() {
   if (todosList.children.length === 0) {
     // Disable buttons
-    clearAllBtn.setAttribute("disabled", "");
+    clearAllBtn.setAttribute("disabled", "true");
     let msg = document.createElement("p");
     msg.textContent = "Your list is empty :( Consider adding some tasks!";
     msg.classList.add("empty-message");
     todosList.appendChild(msg);
     return;
+  }
+  if (todosList.firstChild.classList.contains("empty-message")) {
+    todosList.firstChild.remove();
   }
   clearAllBtn.removeAttribute("disabled");
 }
