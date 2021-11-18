@@ -164,6 +164,7 @@ function editTodo(e) {
   if (e.target.classList.contains("edit-button")) {
     let todo = buttonsDiv.parentElement.previousElementSibling.children[1];
     let oldText = todo.textContent;
+    let editBtn = e.target;
 
     todo.contentEditable = "true";
     // Set style
@@ -180,11 +181,14 @@ function editTodo(e) {
     btnConfirm.setAttribute("title", "Save changes");
     btnConfirm.classList.add("confirm-button");
     btnConfirm.innerHTML = `<i class="fas fa-check"></i>`;
-    // Add button only once
+
+    // Hide edit button while editing todo on mobile
+    if (root.clientWidth < 576) editBtn.style.display = "none";
+    // Add confirm button (only once)
     if (!buttonsDiv.children[0].classList.contains("confirm-button")) {
       buttonsDiv.prepend(btnConfirm);
     }
-    // Add tooltip
+    // Show and hide tooltip
     let tooltip = todo.nextElementSibling;
     tooltip.classList.remove("hidden");
     todo.addEventListener("click", function () {
@@ -194,12 +198,15 @@ function editTodo(e) {
     btnConfirm.addEventListener("click", function () {
       saveEdited(todo, oldText, btnConfirm);
       tooltip.classList.add("hidden");
+      editBtn.style.display = "block";
     });
+    // Save on Enter key, remove tooltip
     todo.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         saveEdited(todo, oldText, btnConfirm);
         todo.classList.remove("is-focused");
         tooltip.classList.add("hidden");
+        editBtn.style.display = "block";
       }
     });
   }
