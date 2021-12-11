@@ -304,10 +304,16 @@ function fillEmptyContent() {
   if (todosList.children.length === 0) {
     // Disable buttons
     clearAllBtn.setAttribute("disabled", "true");
+
+    let msgBox = document.createElement("div");
+    let icon = document.createElement("i");
     let msg = document.createElement("p");
-    msg.textContent = "Your list is empty :( Consider adding some tasks!";
-    msg.classList.add("empty-message");
-    todosList.appendChild(msg);
+    icon.classList.add("fas", "fa-check-square", "d-block", "mx-auto", "mt-2");
+    msgBox.classList.add("empty-message");
+    msg.textContent = "All done!";
+    msgBox.appendChild(icon);
+    msgBox.appendChild(msg);
+    todosList.appendChild(msgBox);
     return;
   }
   if (todosList.firstChild.classList.contains("empty-message")) {
