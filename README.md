@@ -23,7 +23,7 @@ Fully responsive TODO list that uses Local Storage to save tasks
 
 ## Demo
 
-### Live preview: [link](https://davidtrikic.github.io/todo-list/)
+> ### Live preview: [link](https://davidtrikic.github.io/todo-list/)
 
 ## Screenshots
 
