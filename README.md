@@ -1,6 +1,6 @@
 # Javascript TODO List
 
-Fully responsive TODO list with that uses Local Storage to save tasks
+Fully responsive TODO list that uses Local Storage to save tasks
 
 ## Tehnologies used:
 
@@ -27,5 +27,10 @@ Fully responsive TODO list with that uses Local Storage to save tasks
 
 ## Screenshots
 
+### Desktop
+
 ![Screenshot_1](screenshots/screenshot_1.png)
+
+### Mobile
+
 ![Screenshot_1](screenshots/screenshot_2.png)
