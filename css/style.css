@@ -20,6 +20,9 @@ body::before {
   background-repeat: no-repeat;
   background-position: center top;
 }
+i {
+  pointer-events: none;
+}
 li {
   list-style-type: none;
 }
